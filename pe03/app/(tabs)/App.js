@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import Heading from './Heading';
 import Input from './Input';
+import TodoList from './TodoList';
 
 class App extends Component {
   constructor() {
@@ -30,26 +31,49 @@ class App extends Component {
       },
     ];
     this.setState(
-      {
-        todos: newTodos,
-        inputValue: '',
-      },
+      {todos: newTodos, inputValue: ''},
       () => console.log('State:', this.state),
     );
   };
 
+  completeTodo = todoIndex => {
+    const newTodos = this.state.todos.map(todo => {
+      if (todo.todoIndex === todoIndex) {
+        todo.complete = !todo.complete;
+      }
+      return todo;
+    });
+    this.setState({todos: newTodos});
+  };
+
+  removeTodo = todoIndex => {
+    const filteredTodos = this.state.todos.filter(
+      todo => todo.todoIndex !== todoIndex,
+    );
+    this.setState({todos: filteredTodos});
+  };
+
+  changeType = type => {
+    this.setState({type});
+  };
+
   render() {
     return (
-      <View style={styles.container}>
+        <View style={styles.container}>
         <ScrollView keyboardShouldPersistTaps="always" style={styles.content}>
-          <Heading />
-          <Input
+            <Heading />
+            <TodoList
+            todos={this.state.todos}
+            type={this.state.type}
             inputValue={this.state.inputValue}
             inputChange={this.inputChange}
+            completeTodo={this.completeTodo}
+            removeTodo={this.removeTodo}
+            changeType={this.changeType}
             addTodo={this.addTodo}
-          />
+            />
         </ScrollView>
-      </View>
+        </View>
     );
   }
 }
