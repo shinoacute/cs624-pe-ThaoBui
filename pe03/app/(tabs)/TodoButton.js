@@ -1,28 +1,41 @@
-import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import React from 'react'
+import { Text, TouchableHighlight, StyleSheet } from 'react-native'
 
-const TodoButton = ({text, active, onPress}) => (
-  <TouchableOpacity onPress={onPress} style={styles.button}>
-    <Text style={[styles.buttonText, active && styles.activeText]}>
-      {text}
-    </Text>
-  </TouchableOpacity>
-);
+const TodoButton = ({ onPress, complete, name}) => (
+    <TouchableHighlight
+        onPress={onPress}
+        underlayColor='#efefef'
+        style={styles.button}>
+        <Text style={[
+            styles.Text,
+            complete ? styles.complete : null,
+            name === 'Delete' ? styles.deleteButton : null ]}
+        >
+            {name}
+        </Text>
+            
+    </TouchableHighlight>
+)
 
-const styles = StyleSheet.create({
-  button: {
-    flex: 1,
-    paddingVertical: 15,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#CACACA',
-    fontSize: 14,
-  },
-  activeText: {
-    color: '#333333',
-    fontWeight: 'bold',
-  },
-});
+const styles= StyleSheet.create({
+    button: {
+        alignSelf: 'flex-end',
+        padding: 7, 
+        borderColor: '#ededed',
+        borderWidth: 1,
+        borderRadius: 4, 
+        marginRight: 5
+    },
+    text: {
+        color: '#666666'
+    },
+    complete: {
+        color: 'green',
+        fontWeight: 'bold'
+    },
+    deleteButton: {
+        color: 'rgba(175, 47, 47, 1)'
+    }
+})
 
-export default TodoButton;
+export default TodoButton
