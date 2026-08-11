@@ -1,50 +1,12 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+# Input
+ 
+The app takes a static profile object (`name`, `occupation`, `description`, and a local image) and generates an array of six identical card entries. Each entry also carries a `showThumbnail` boolean, which starts as `true`. User interaction — tapping a card via `TouchableHighlight` — serves as the runtime input that drives state changes.
+ 
+# Process
+ 
+`App` holds the card data in state and passes each item to a reusable `ProfileCard` component as props. When a card is tapped, `handleProfileCardPress` uses `immutability-helper` to toggle that card's `showThumbnail` flag while resetting any other expanded card back to thumbnail size, ensuring only one card is expanded at a time.
+ 
+# Output
+ 
+The screen displays six cards in a wrapped grid. Tapped cards expand to show full name, occupation, and description with black text and a divider; others remain scaled-down thumbnails, giving the gallery an interactive, focus-one-card visual layout.
+ 
