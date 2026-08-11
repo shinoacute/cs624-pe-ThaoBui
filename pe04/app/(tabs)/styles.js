@@ -1,46 +1,132 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet, Dimensions, Platform  } from 'react-native'
 
-export const Colors = {
-    dark: 'black',
-    light: 'white'
-};
+const screenHeight = Dimensions.get('window').height;
+const statusBarHeight = Platform.OS === 'ios' ? 40 : 20;
+const availableHeight = screenHeight - statusBarHeight - 40;
+const expandedCardHeight = Math.min(230, availableHeight / 3 * 0.9);
 
-const baseContainerStyles = {
+const styles = StyleSheet.create({
+  appContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-};
-
-const baseBoxStyles = {
-    justifyContent: 'center',
+    backgroundColor: 'white',
+    paddingTop: statusBarHeight + 20,
+    paddingBottom: 20,
     alignItems: 'center',
-    borderWidth: 2,
-    height: 150,
-    width: 150
-};
-
-const lightStyleSheet = StyleSheet.create({
-    container: {
-        ...baseContainerStyles,
-        backgroundColor: Colors.light
-    },
-    box: {
-        ...baseBoxStyles,
-        borderColor: Colors.dark
-    }
+  },
+  galleryContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '90%',
+    maxWidth: 340, 
+    justifyContent: 'center', 
+  },
+  cardContainer: { 
+    flexBasis: '50%', 
+    paddingHorizontal: 3, 
+    marginVertical: 3,
+    alignItems: 'center', 
+    justifyContent: 'center',
+    ...Platform.select({ 
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: {
+          height: 10
+        },
+        shadowOpacity: 1
+      },
+      android: {
+        elevation: 15
+      }
+    })
+  },
+  cardContentWrapper: { 
+    width: '100%', 
+    height: expandedCardHeight,
+    alignItems: 'center',
+    borderColor: 'black',
+    borderWidth: 2.5,
+    borderRadius: 18,
+    backgroundColor: 'dodgerblue',
+    paddingVertical: 8,
+    paddingHorizontal: 6,
+    overflow: 'hidden',
+  },
+  cardImageContainer: {
+    backgroundColor: 'white',
+    borderWidth: 3,
+    borderColor: 'black',
+    width: 60,
+    height: 60,
+    borderRadius: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5,
+    ...Platform.select({ 
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: {
+          height: 10,
+        },
+        shadowOpacity: 1
+      },
+      android: {
+        elevation: 15
+      }
+    }) 
+  },
+  cardImage: {
+    width: 50,
+    height: 50,
+  },
+  textContentContainer: {
+    marginTop: 10,
+    alignItems: 'center',
+    width: '100%',
+    flex: 1,
+    justifyContent: 'flex-start',
+    paddingBottom: 3,
+  },
+  cardName: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 15,
+    textAlign: 'center',
+    marginBottom: 5,
+  },
+  thumbnailCardName: {
+    fontSize: 12,
+  },
+  cardOccupationContainer: {
+    borderColor: 'black',
+    borderBottomWidth: 1.2,
+    paddingBottom: 1,
+    marginBottom: 3,
+    alignSelf: 'stretch',
+    marginHorizontal: '12%',
+  },
+  cardOccupation: {
+    color: 'black',
+    fontWeight: '500',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  thumbnailCardOccupation: {
+    fontSize: 10,
+  },
+  cardDescription: {
+    color: 'black',
+    fontSize: 10,
+    textAlign: 'center',
+    paddingHorizontal: 2,
+    marginTop: 2,
+    fontStyle: 'italic',
+  },
+  thumbnailCardDescription: {
+    fontSize: 8,
+  },
+  cardThumbnail: {
+    transform: [{ scale: 0.5}],
+  },
 });
 
-const darkStyleSheet = StyleSheet.create({
-    container: {
-        ...baseContainerStyles,
-        backgroundColor: Colors.dark
-    },
-    box: {
-        ...baseBoxStyles,
-        borderColor: Colors.light
-    }
-});
-
-export default function getStyleSheet(useDarkTheme){
-    return useDarkTheme ? darkStyleSheet : lightStyleSheet;
-}
+export default styles;
